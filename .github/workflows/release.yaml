@@ -28,5 +28,11 @@ jobs:
       - name: Build Image
         run: OSS_REGISTRY="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}" VERSION="${{ github.ref_name }}" make image
 
+      - run: ls -la /go/src/github.com/
+      - run: ls -la /go/src/github.com/pree/
+      - run: ls -la /go/src/github.com/oracle/
+      - run: ls -la /go/src/github.com/pree/oci-cloud-controller-manager/dist/
+      - run: ls -la /go/src/github.com/oracle/oci-cloud-controller-manager/dist/
+
       - name: Push Image
         run: OSS_REGISTRY="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}" VERSION="${{ github.ref_name }}" make docker-push-all
