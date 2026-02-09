@@ -18,7 +18,7 @@ FROM golang:1.24.0 as builder
 
 ARG COMPONENT
 
-ENV SRC /go/src/github.com/pree/oci-cloud-controller-manager
+ENV SRC /go/src/github.com/oracle/oci-cloud-controller-manager
 
 ENV GOPATH /go/
 RUN mkdir -p /go/bin $SRC
@@ -29,8 +29,8 @@ RUN COMPONENT=${COMPONENT} make clean build
 
 FROM ghcr.io/oracle/oraclelinux:8-slim-fips
 
-COPY --from=0 /go/src/github.com/pree/oci-cloud-controller-manager/dist/* /usr/local/bin/
-COPY --from=0 /go/src/github.com/pree/oci-cloud-controller-manager/image/* /usr/local/bin/
+COPY --from=0 /go/src/github.com/oracle/oci-cloud-controller-manager/dist/* /usr/local/bin/
+COPY --from=0 /go/src/github.com/oracle/oci-cloud-controller-manager/image/* /usr/local/bin/
 
 RUN microdnf -y install util-linux e2fsprogs xfsprogs python2 && \
     microdnf update && \
@@ -45,4 +45,4 @@ RUN chmod 755 /sbin/encrypt-umount
 RUN chmod 755 /sbin/rpm-host
 RUN chmod 755 /sbin/chroot-bash
 
-COPY --from=0 /go/src/github.com/pree/oci-cloud-controller-manager/dist/* /usr/local/bin/
+COPY --from=0 /go/src/github.com/oracle/oci-cloud-controller-manager/dist/* /usr/local/bin/
