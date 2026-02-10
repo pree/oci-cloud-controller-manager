@@ -46,7 +46,6 @@ const (
 	CompartmentIDAnnotation = "oci.oraclecloud.com/compartment-id"
 	AvailabilityDomainLabel = "csi-ipv6-full-ad-name"
 	timeout                 = 10 * time.Second
-	providerPrefix          = "oci://"
 )
 
 // NodeInfoController helps compute workers in the cluster
@@ -200,7 +199,6 @@ func getNodePatchBytes(cacheNode *v1.Node, instance *core.Instance, providerID s
 	if validateNodeHasRequiredLabels(cacheNode) {
 		return nil
 	}
-	_, isProviderIDSet := cacheNode.Spec.ProviderID != ""
 	_, isFaultDomainLabelPresent := cacheNode.ObjectMeta.Labels[FaultDomainLabel]
 	_, isAvailabilityDomainLabelPresent := cacheNode.ObjectMeta.Labels[AvailabilityDomainLabel]
 	_, isCompartmentIDAnnotationPresent := cacheNode.ObjectMeta.Annotations[CompartmentIDAnnotation]
